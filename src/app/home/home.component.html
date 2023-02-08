@@ -1,22 +1,29 @@
 <app-nav-bar></app-nav-bar>
 
-<div class="container-fluid">
+<div class="container-fluid" *ngFor="let bike of bikes">
     <div class="card" style="width: 18rem;">
-        <img src="..." class="card-img-top" alt="...">
+        <img [src]="bike.urlImage" class="card-img-top" alt="...">
         <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-                content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
+            <h5 class="card-title">{{bike.name}}</h5>
+            <p class="card-text">Precio: {{bike.precio}}</p>
+            <p class="card-text">Cantidad disponible: {{bike.max <= (bike.inInventory - bike.min) ? bike.max: bike.inInventory - bike.min}}</p>
+            <label for="inputAmount">Cantidad a comprar</label>
+            <input id="inputAmount" type="number" style="width: 40px; margin-left: 20px;">
+            <a href="#" class="btn btn-primary">Agregar al carrito</a>
+            
         </div>
     </div>
 </div>
 
-<nav aria-label="Page navigation example">
-    <ul class="pagination justify-content-center">
-      <li class="page-item"><a class="page-link" href="#">Anterior</a></li>
-      <li class="page-item"><a class="page-link" href="#">1</a></li>
-      <li class="page-item"><a class="page-link" href="#">Siguiente</a></li>
-    </ul>
-  </nav>
+<div>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+          <li class="page-item"><a class="page-link"  (click)="previousPage()">Anterior</a></li>
+          <li class="page-item" *ngFor="let page of pages; let i = index"><a class="page-link"   (click)="getPage(i)">{{i+1}}</a></li>
+          <li class="page-item"><a class="page-link"  (click)="nextPage()">Siguiente</a></li>
+        </ul>
+      </nav>
+</div>
+
+
 

@@ -15,4 +15,9 @@ export class InventaryService {
     return this.http$.get<any>(direction);
   }
 
+  getTotalPages(): Observable<number> {
+    let direction = environment.urlInventaryService + 'totalPages';
+    return this.http$.get<number>(direction);
+  }
+
 }
