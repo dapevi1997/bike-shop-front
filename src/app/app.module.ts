@@ -7,6 +7,7 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { HomeComponent } from './home/home.component';
 import { HttpClientModule} from '@angular/common/http';
 import { CarComponent } from './car/car.component';
+import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,7 @@ import { CarComponent } from './car/car.component';
     HttpClientModule,
    
   ],
-  providers: [HttpClientModule],
+  providers: [HttpClientModule, CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

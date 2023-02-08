@@ -1,4 +1,4 @@
-<app-nav-bar></app-nav-bar>
+<app-nav-bar [numberOfProducts] = "numberOfProducts"></app-nav-bar>
 
 <div class="container-fluid" *ngFor="let bike of bikes">
     <div class="card" style="width: 18rem;">
@@ -8,8 +8,8 @@
             <p class="card-text">Precio: {{bike.precio}}</p>
             <p class="card-text">Cantidad disponible: {{bike.max <= (bike.inInventory - bike.min) ? bike.max: bike.inInventory - bike.min}}</p>
             <label for="inputAmount">Cantidad a comprar</label>
-            <input id="inputAmount" type="number" style="width: 40px; margin-left: 20px;">
-            <a href="#" class="btn btn-primary">Agregar al carrito</a>
+            <input id="inputAmount" type="number" style="width: 40px; margin-left: 20px;" #amount>
+            <a class="btn btn-primary" (click)="addToCar(bike.id, amount.value)">Agregar al carrito</a>
             
         </div>
     </div>
