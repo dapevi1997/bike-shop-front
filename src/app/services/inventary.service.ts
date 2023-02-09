@@ -20,4 +20,10 @@ export class InventaryService {
     return this.http$.get<number>(direction);
   }
 
+  getById(id:string){
+    let direction = environment.urlInventaryService + 'getBike/' + id;
+    return this.http$.get(direction);
+    
+  }
+
 }

@@ -4,6 +4,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { Products} from '../models/products.interface';
 import { Purchase, ProductsPost } from '../models/car.interface';
 import { CarService } from '../services/car.service';
+import { Bike } from '../models/bike.interface';
 
 @Component({
   selector: 'app-car',
@@ -77,6 +78,27 @@ export class CarComponent implements OnInit {
     }
 
     this.car$.addPurchase(body).subscribe({
+      next: (data) => {
+        console.log(data);
+      },
+      error: (e) => console.log(e)
+        ,
+      complete: () => {}
+    });
+
+    let bike: Bike = {
+      id: "idProduct",
+      name: "NameProduct",
+      inInventory: 500, //hay que descontarle uno
+      enabled: true, // dependiendo de los máximos y mínimos
+      min: 8,
+      max: 200,
+      urlImage: "urlImage",
+      state: true,
+      precio: 2500000,
+    }
+
+    this.car$.updateBikeInventary(bike).subscribe({
       next: (data) => {
         console.log(data);
       },
