@@ -1,2 +1,31 @@
-<p *ngFor="let product of products; index as i">{{product.id}} {{product.amount}} <button (click)="deleteProductOfCar(product,i)">Eliminar</button></p>
+<p *ngFor="let product of products; index as i">{{product.id}} {{product.amount}} <button
+        (click)="deleteProductOfCar(product,i)">Eliminar</button></p>
 
+<div class="container">
+    <form id="idFormCreate" autocomplete="on" [formGroup]="formulario">
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="floatingInput" placeholder="Tipo de documento"
+                formControlName="idType">
+            <div *ngIf="formulario.get('idType')?.hasError('required') && formulario.pristine === false">El tipo de
+                documento es requerido</div>
+            <label for="floatingInput">Tipo de documento</label>
+        </div>
+        <div class="form-floating">
+            <input type="text" class="form-control" id="floatingPassword" placeholder="Número de documento"
+                formControlName="idClient">
+            <div *ngIf="formulario.get('idClient')?.hasError('required') && formulario.pristine === false">El documento
+                es requerido</div>
+            <label for="floatingPassword">Documento</label>
+        </div>
+        <div class="form-floating">
+            <input type="text" class="form-control" id="floatingPassword" placeholder="Nombre"
+                formControlName="nameClient">
+            <div *ngIf="formulario.get('nameClient')?.hasError('required') && formulario.pristine === false">El nombre
+                es requerido</div>
+            <label for="floatingPassword">Nombre</label>
+        </div>
+
+        <button type="submit" form="idFormCreate" class="btn btn-primary" data-bs-dismiss="modal"
+             [disabled]="formulario.invalid">Comprar</button>
+    </form>
+</div>

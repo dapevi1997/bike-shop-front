@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
 import { Products } from '../models/products.interface';
 
@@ -9,9 +10,15 @@ import { Products } from '../models/products.interface';
 })
 export class CarComponent implements OnInit {
   products: Array<Products>;
+  formulario: FormGroup;
 
   constructor(private cookie$: CookieService) {
     this.products = new Array();
+    this.formulario = new FormGroup({
+      idType: new FormControl(null, [Validators.required]),
+      idClient: new FormControl(null, [Validators.required]),
+      nameClient: new FormControl(null, [Validators.required])
+    });
   }
 
   ngOnInit(): void {
