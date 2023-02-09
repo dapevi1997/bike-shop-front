@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
-import { Products } from '../models/products.interface';
+import { Products} from '../models/products.interface';
+import { Purchase, ProductsPost } from '../models/car.interface';
+import { CarService } from '../services/car.service';
 
 @Component({
   selector: 'app-car',
@@ -12,7 +14,7 @@ export class CarComponent implements OnInit {
   products: Array<Products>;
   formulario: FormGroup;
 
-  constructor(private cookie$: CookieService) {
+  constructor(private cookie$: CookieService, private car$: CarService) {
     this.products = new Array();
     this.formulario = new FormGroup({
       idType: new FormControl(null, [Validators.required]),
@@ -57,6 +59,32 @@ export class CarComponent implements OnInit {
       this.cookie$.set(`productsAmount[${i}]`, this.products[i].amount);
 
     }
+
+  }
+
+  createPurchase() {
+    let product: ProductsPost = {
+      id: "idProduct",
+      amount: 2
+    }
+
+    let body: Purchase = {
+      idType: "cc",
+      idClient: "1103119753",
+      nameClient: "Daniel Pérez",
+      products: [product]
+
+    }
+
+    this.car$.addPurchase(body).subscribe({
+      next: (data) => {
+        console.log(data);
+      },
+      error: (e) => console.log(e)
+        ,
+      complete: () => {}
+    });
+
 
   }
 

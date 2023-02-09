@@ -18,14 +18,15 @@
             <label for="floatingPassword">Documento</label>
         </div>
         <div class="form-floating">
-            <input type="text" class="form-control" id="floatingPassword" placeholder="Nombre"
+            <input type="text" class="form-control" id="floatingPassword1" placeholder="Nombre"
                 formControlName="nameClient">
             <div *ngIf="formulario.get('nameClient')?.hasError('required') && formulario.pristine === false">El nombre
                 es requerido</div>
-            <label for="floatingPassword">Nombre</label>
+            <label for="floatingPassword1">Nombre</label>
         </div>
 
-        <button type="submit" form="idFormCreate" class="btn btn-primary" data-bs-dismiss="modal"
-             [disabled]="formulario.invalid">Comprar</button>
+        <button type="submit" form="idFormCreate" class="btn btn-primary" 
+            (click)="createPurchase()" [disabled]="formulario.invalid">Comprar</button>
     </form>
 </div>
+
