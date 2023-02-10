@@ -1,29 +1,36 @@
-<app-nav-bar [numberOfProducts] = "numberOfProducts"></app-nav-bar>
+<app-nav-bar [numberOfProducts]="numberOfProducts"></app-nav-bar>
 
-<div class="container-fluid" *ngFor="let bike of bikes">
-    <div class="card" style="width: 18rem;">
-        <img [src]="bike.urlImage" class="card-img-top" alt="...">
-        <div class="card-body">
-            <h5 class="card-title">{{bike.name}}</h5>
-            <p class="card-text">Precio: {{bike.precio}}</p>
-            <p class="card-text">Cantidad disponible: {{bike.max <= (bike.inInventory - bike.min) ? bike.max: bike.inInventory - bike.min}}</p>
-            <label for="inputAmount">Cantidad a comprar</label>
-            <input id="inputAmount" type="number" style="width: 40px; margin-left: 20px;" #amount>
-            <a class="btn btn-primary" (click)="addToCar(bike.id, amount.value)">Agregar al carrito</a>
-            
+
+<div class="container text-center" >
+    <div class="row align-items-start">
+        <div class="col" *ngFor="let bike of bikes">
+            <div class="card" style="width: 18rem;">
+                <img [src]="bike.urlImage" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">{{bike.name}}</h5>
+                    <p class="card-text">Precio: {{bike.precio | currency}}</p>
+                    <p class="card-text">Cantidad disponible: {{bike.max <= (bike.inInventory - bike.min) ? bike.max:
+                            bike.inInventory - bike.min}}</p>
+                            <label for="inputAmount">Cantidad a comprar</label>
+                            <input id="inputAmount" type="number" class="" value="1" style="width: 40px; margin-left: 20px;" #amount>
+                            <a class="btn btn-primary" (click)="addToCar(bike.id, amount.value)" style="margin-top: 10px;">Agregar al carrito</a>
+
+                </div>
+            </div>
         </div>
-    </div>
-</div>
 
-<div>
+    </div>
+
+</div>
+<br><br><br><br><br><br><br><br><br><br>
+
+<div class="container" >
     <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-center">
-          <li class="page-item"><a class="page-link"  (click)="previousPage()">Anterior</a></li>
-          <li class="page-item" *ngFor="let page of pages; let i = index"><a class="page-link"   (click)="getPage(i)">{{i+1}}</a></li>
-          <li class="page-item"><a class="page-link"  (click)="nextPage()">Siguiente</a></li>
+            <li class="page-item"><a class="page-link" (click)="previousPage()">Anterior</a></li>
+            <li class="page-item" *ngFor="let page of pages; let i = index"><a class="page-link"
+                    (click)="getPage(i)">{{i+1}}</a></li>
+            <li class="page-item"><a class="page-link" (click)="nextPage()">Siguiente</a></li>
         </ul>
-      </nav>
+    </nav>
 </div>
-
-
-

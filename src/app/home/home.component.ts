@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { InventaryService } from '../services/inventary.service';
 import { Observable, Subject } from 'rxjs';
+import { Bike } from '../models/bike.interface';
 
 @Component({
   selector: 'app-home',
@@ -11,7 +12,7 @@ import { Observable, Subject } from 'rxjs';
 export class HomeComponent implements OnInit {
 
   page: number = 0;
-  bikes: any[] | undefined;
+  bikes: Bike[] | undefined;
   pages: Array<number> | undefined;
   products!: Object[];
   numberOfProducts: Subject<number>;
@@ -31,8 +32,9 @@ export class HomeComponent implements OnInit {
       .subscribe(
         {
           next: (data) => {
-            //console.log(data)
-            this.bikes = data;
+           const auxData = data.filter(bike => bike.enabled == true)
+           this.bikes = auxData;
+      
 
           },
           error: (e) => {
