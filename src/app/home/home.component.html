@@ -13,7 +13,7 @@
                             bike.inInventory - bike.min}}</p>
                             <label for="inputAmount">Cantidad a comprar</label>
                             <input id="inputAmount" type="number" class="" value="1" style="width: 40px; margin-left: 20px;" #amount>
-                            <a class="btn btn-primary" (click)="addToCar(bike.id, amount.value)" style="margin-top: 10px;">Agregar al carrito</a>
+                            <button class="btn btn-primary" (click)="addToCar(bike.id, amount.value)" style="margin-top: 10px;" [disabled]="!bike.state">Agregar al carrito</button>
 
                 </div>
             </div>

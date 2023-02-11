@@ -9,3 +9,10 @@ export interface Bike {
     state: boolean
     precio: number
   }
+
+  export interface BikeInCar {
+    id: string
+    name: string
+    precio: number
+    amount: number
+  }

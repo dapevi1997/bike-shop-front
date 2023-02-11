@@ -4,7 +4,7 @@ export interface Purchase {
     idType:string
     idClient:string
     nameClient:string
-    products: [ProductsPost]
+    products: ProductsPost[]
  }
 
  export interface ProductsPost {

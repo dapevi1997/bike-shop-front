@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
-import { Products} from '../models/products.interface';
+import { Products } from '../models/products.interface';
 import { Purchase, ProductsPost } from '../models/car.interface';
 import { CarService } from '../services/car.service';
-import { Bike } from '../models/bike.interface';
+import { Bike, BikeInCar } from '../models/bike.interface';
+import { InventaryService } from '../services/inventary.service';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-car',
@@ -13,10 +15,19 @@ import { Bike } from '../models/bike.interface';
 })
 export class CarComponent implements OnInit {
   products: Array<Products>;
+  productToBuy: Array<ProductsPost>;
+  bikesInCar: Array<BikeInCar>;
   formulario: FormGroup;
+  totalPrice: number;
 
-  constructor(private cookie$: CookieService, private car$: CarService) {
+
+  constructor(private cookie$: CookieService, private car$: CarService, private inventary$: InventaryService) {
     this.products = new Array();
+    this.bikesInCar = new Array();
+    this.productToBuy = new Array();
+    this.totalPrice = 0;
+
+
     this.formulario = new FormGroup({
       idType: new FormControl(null, [Validators.required]),
       idClient: new FormControl(null, [Validators.required]),
@@ -25,8 +36,13 @@ export class CarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getProducts()
+    this.getProducts();
+    
+
+
   }
+
+
 
   getProducts() {
     let lenght = parseInt(this.cookie$.get("index")) + 1;
@@ -37,75 +53,120 @@ export class CarComponent implements OnInit {
         amount: this.cookie$.get(`productsAmount[${i}]`)
       }
 
+
+      this.inventary$.getById(product.id)
+        .subscribe(
+          {
+            next: (data) => {
+
+              let dataForCar: BikeInCar = {
+                id: data.id,
+                name: data.name,
+                precio: data.precio,
+                amount: Number.parseInt(product.amount)
+              }
+              this.bikesInCar.push(dataForCar);
+
+              this.totalPrice += dataForCar.precio;
+
+            },
+            error: (e) => {
+              console.log(e)
+            },
+            complete: () => { },
+          }
+        );
+
+
       this.products.push(product)
 
     }
 
+
+
   }
 
-  deleteProductOfCar(product: Products, index: number) {
-    console.log(product.id)
-    console.log(product.amount)
-    //console.log(this.products.find(p=>p.id == product.id))
-    console.log(index)
+  getTotalPrice() {
+    for (let i = 0; i < this.bikesInCar.length; i++)
+      this.totalPrice += this.bikesInCar[i].precio
+  }
 
-    console.log(this.cookie$.get(`productsId[${index}]`))
-    this.products.splice(index, 1)
+
+  deleteProductOfCarTable(bike: BikeInCar, index: number) {
+
+
+
+
+    this.bikesInCar.splice(index, 1)
+
     this.cookie$.deleteAll()
 
-    for (let i = 0; i < this.products.length; i++) {
-      let aux = this.products.length - 1
+    for (let i = 0; i < this.bikesInCar.length; i++) {
+      let aux = this.bikesInCar.length - 1
       this.cookie$.set("index", aux.toString())
-      this.cookie$.set(`productsId[${i}]`, this.products[i].id);
-      this.cookie$.set(`productsAmount[${i}]`, this.products[i].amount);
+      this.cookie$.set(`productsId[${i}]`, this.bikesInCar[i].id);
+      this.cookie$.set(`productsAmount[${i}]`, this.bikesInCar[i].amount.toString());
 
     }
+
+    this.totalPrice = 0;
+
+    this.getTotalPrice()
+
 
   }
 
   createPurchase() {
-    let product: ProductsPost = {
-      id: "idProduct",
-      amount: 2
+
+    for (let i = 0; i < this.bikesInCar.length; i++) {
+      let product: ProductsPost = {
+        id: this.bikesInCar[i].id,
+        amount: this.bikesInCar[i].amount
+      }
+      this.productToBuy.push(product)
     }
+
+
 
     let body: Purchase = {
-      idType: "cc",
-      idClient: "1103119753",
-      nameClient: "Daniel Pérez",
-      products: [product]
+      idType: this.formulario.value.idType,
+      idClient: this.formulario.value.idClient,
+      nameClient: this.formulario.value.nameClient,
+      products: this.productToBuy
 
     }
+
+
 
     this.car$.addPurchase(body).subscribe({
       next: (data) => {
         console.log(data);
       },
       error: (e) => console.log(e)
-        ,
-      complete: () => {}
+      ,
+      complete: () => { }
     });
 
-    let bike: Bike = {
-      id: "idProduct",
-      name: "NameProduct",
-      inInventory: 500, //hay que descontarle uno
-      enabled: true, // dependiendo de los máximos y mínimos
-      min: 8,
-      max: 200,
-      urlImage: "urlImage",
-      state: true,
-      precio: 2500000,
-    }
+    //   let bike: Bike = {
+    //     id: "idProduct",
+    //     name: "NameProduct",
+    //     inInventory: 500, //hay que descontarle uno
+    //     enabled: true, // dependiendo de los máximos y mínimos
+    //     min: 8,
+    //     max: 200,
+    //     urlImage: "urlImage",
+    //     state: true,
+    //     precio: 2500000,
+    //   }
 
-    this.car$.updateBikeInventary(bike).subscribe({
-      next: (data) => {
-        console.log(data);
-      },
-      error: (e) => console.log(e)
-        ,
-      complete: () => {}
-    });
+    //   this.car$.updateBikeInventary(bike).subscribe({
+    //     next: (data) => {
+    //       console.log(data);
+    //     },
+    //     error: (e) => console.log(e)
+    //     ,
+    //     complete: () => { }
+    //   });
 
 
   }
