@@ -1,4 +1,3 @@
-import { Products} from "./products.interface";
 
 export interface Purchase {
     idType:string
@@ -11,3 +10,19 @@ export interface Purchase {
     id:string
     amount:number;
  }
+
+ export type Purchases = Purchase2[]
+
+export interface Purchase2 {
+  id: string
+  dateTime: string
+  idType: string
+  idClient: string
+  nameClient: string
+  products: Product[]
+}
+
+export interface Product {
+  id: string
+  amount: number
+}
