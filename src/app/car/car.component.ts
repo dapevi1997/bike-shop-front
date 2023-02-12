@@ -7,6 +7,8 @@ import { CarService } from '../services/car.service';
 import { Bike, BikeInCar } from '../models/bike.interface';
 import { InventaryService } from '../services/inventary.service';
 import { Subject } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
+import { environment } from '../../environments/environment.prod';
 
 @Component({
   selector: 'app-car',
@@ -19,12 +21,17 @@ export class CarComponent implements OnInit {
   bikesInCar: Array<BikeInCar>;
   formulario: FormGroup;
   totalPrice: number;
+  numberOfProducts: Subject<number>;
+  eliminateProduct: Subject<number>;
 
 
-  constructor(private cookie$: CookieService, private car$: CarService, private inventary$: InventaryService) {
+  constructor(private cookie$: CookieService, private car$: CarService, private inventary$: InventaryService, private toast$: ToastrService) {
     this.products = new Array();
     this.bikesInCar = new Array();
     this.productToBuy = new Array();
+    this.numberOfProducts = new Subject();
+    this.eliminateProduct = new Subject();
+    
     this.totalPrice = 0;
 
 
@@ -37,8 +44,6 @@ export class CarComponent implements OnInit {
 
   ngOnInit(): void {
     this.getProducts();
-    
-
 
   }
 
@@ -113,8 +118,14 @@ export class CarComponent implements OnInit {
 
     this.getTotalPrice()
 
+    this.numberOfProducts.next(-1);
+    this.numberOfProducts.asObservable();
+    window.location.href = "http://localhost:4200/car"
+
+
 
   }
+
 
   createPurchase() {
 
@@ -144,7 +155,13 @@ export class CarComponent implements OnInit {
       },
       error: (e) => console.log(e)
       ,
-      complete: () => { }
+      complete: () => {
+        this.cookie$.deleteAll();
+        this.toast$.success("Compra realizada con éxito");
+        this.numberOfProducts.next(-1);
+        this.numberOfProducts.asObservable();
+        window.location.href = "http://localhost:4200/"
+      }
     });
 
 

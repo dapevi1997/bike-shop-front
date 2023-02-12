@@ -21,6 +21,11 @@ export class InventaryService {
     return this.http$.get<number>(direction);
   }
 
+  getTotalBikes(): Observable<number> {
+    let direction = environment.urlInventaryService + 'countBikes';
+    return this.http$.get<number>(direction);
+  }
+
   getById(id:string): Observable<Bike>{
     let direction = environment.urlInventaryService + 'getBike/' + id;
     return this.http$.get<Bike>(direction);

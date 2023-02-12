@@ -1,3 +1,4 @@
+<app-nav-bar [numberOfProductsFromCar]="numberOfProducts" [eliminateProduct]="eliminateProduct"></app-nav-bar>
 <div class="container">
     <div class="row align-items-start">
         <div class="col">
@@ -59,7 +60,7 @@
                         <label for="floatingPassword1">Nombre</label>
                     </div>
 
-                    <button type="submit" form="idFormCreate" class="btn btn-primary" (click)="createPurchase()"
+                    <button type="submit" form="idFormCreate" class="btn btn-primary" (click)="createPurchase()" 
                         [disabled]="formulario.invalid" style="margin-top: 10px;">Comprar</button>
                 </form>
             </div>

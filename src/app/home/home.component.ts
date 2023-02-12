@@ -17,11 +17,13 @@ export class HomeComponent implements OnInit {
   pages: Array<number> | undefined;
   products!: Object[];
   numberOfProducts: Subject<number>;
+  totalBikes: number;
 
 
 
   constructor(private inventary$: InventaryService, private cookie$: CookieService, private toast$: ToastrService) {
     this.numberOfProducts = new Subject();
+    this.totalBikes = 0;
 
   }
 
@@ -53,6 +55,20 @@ export class HomeComponent implements OnInit {
           next: (data) => {
 
             this.pages = new Array(data);
+          },
+          error: (e) => {
+            console.log(e)
+          },
+          complete: () => { },
+        }
+      );
+
+      this.inventary$.getTotalBikes()
+      .subscribe(
+        {
+          next: (data) => {
+
+            this.totalBikes = data;
           },
           error: (e) => {
             console.log(e)
@@ -112,7 +128,7 @@ export class HomeComponent implements OnInit {
     this.cookie$.set(`productsId[${index}]`, bike.id);
     this.cookie$.set(`productsAmount[${index}]`, amount.toString());
 
-    this.toast$.success("Bicicleta agregada al carrito")
+    this.toast$.success("Bicicleta agregada al carrito");
     }
 
 
