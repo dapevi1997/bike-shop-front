@@ -127,6 +127,8 @@ export class CarComponent implements OnInit {
   }
 
 
+
+
   createPurchase() {
 
     for (let i = 0; i < this.bikesInCar.length; i++) {

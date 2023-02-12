@@ -11,13 +11,15 @@ import { CookieService } from 'ngx-cookie-service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { PurchasesComponent } from './purchases/purchases.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavBarComponent,
     HomeComponent,
-    CarComponent
+    CarComponent,
+    PurchasesComponent
   ],
   imports: [
     BrowserModule,
