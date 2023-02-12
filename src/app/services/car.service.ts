@@ -16,9 +16,5 @@ export class CarService {
     return this.http$.post(direction,purchase);
   }
 
-  updateBikeInventary(bike:Bike){
-    let direction = environment.urlCarService + 'updateBikeInventary'
-    return this.http$.put<Bike>(direction,bike);
 
-  }
 }

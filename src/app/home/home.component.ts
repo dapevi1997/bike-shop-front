@@ -86,8 +86,12 @@ export class HomeComponent implements OnInit {
     this.getBikes();
   }
 
-  addToCar(id: string, amount: any) {
+  addToCar(bike: Bike, amount: any) {
+    let amountAvailable = bike.max <= (bike.inInventory - bike.min) ? bike.max : bike.inInventory - bike.min
 
+    if (amount > amountAvailable) {
+      this.toast$.warning("La cantidad excede las unidades disponibles")
+    }else{
     //this.cookie$.deleteAll();
 
     let index = "0";
@@ -105,10 +109,13 @@ export class HomeComponent implements OnInit {
     this.numberOfProducts.next(parseInt(index));
     this.numberOfProducts.asObservable();
 
-    this.cookie$.set(`productsId[${index}]`, id);
+    this.cookie$.set(`productsId[${index}]`, bike.id);
     this.cookie$.set(`productsAmount[${index}]`, amount.toString());
 
     this.toast$.success("Bicicleta agregada al carrito")
+    }
+
+
 
 
   }
