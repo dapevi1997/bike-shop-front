@@ -1,27 +1,28 @@
 <app-nav-bar [numberOfProducts]="numberOfProducts"></app-nav-bar>
 
-<div>
-    <a routerLink="purchases">Ver todas las compras hechas</a>
+<div style="float: right;">
+    <a routerLink="purchases" style="margin-right: 20px;">Ver todas las compras hechas</a>
 </div>
 
-<div>
-    <p class="text-start fs-1 mb-1 font1">Todas las bicletas</p>
-    <p class="text-start fs-4 font2">{{ totalBikes }} bicicletas</p>
+<div style="margin-left: 20px;">
+    <p class="h5" >Todas las bicletas</p>
+    <p class="h6">{{ totalBikes }} bicicletas</p>
   </div>
 
 <div class="container text-center" >
     <div class="row align-items-start">
         <div class="col" *ngFor="let bike of bikes">
             <div class="card" style="width: 18rem;">
-                <img [src]="bike.urlImage" class="card-img-top" alt="...">
+                
                 <div class="card-body">
+                    <img [src]="bike.urlImage" class="card-img-top" alt="500px">
                     <h5 class="card-title">{{bike.name}}</h5>
                     <p class="card-text">Precio: {{bike.precio | currency}}</p>
                     <p class="card-text">Cantidad disponible: {{bike.max <= (bike.inInventory - bike.min) ? bike.max:
                             bike.inInventory - bike.min}}</p>
                             <label for="inputAmount">Cantidad a comprar</label>
                             <input id="inputAmount" type="number" class="" value="1" style="width: 40px; margin-left: 20px;" #amount>
-                            <button class="btn btn-primary" (click)="addToCar(bike, amount.value)" style="margin-top: 10px;" [disabled]="!bike.state">Agregar al carrito</button>
+                            <button class="btn btn-secondary" (click)="addToCar(bike, amount.value)" style="margin-top: 10px;" [disabled]="!bike.state">Agregar al carrito</button>
 
                 </div>
             </div>
@@ -30,15 +31,18 @@
     </div>
 
 </div>
-<br><br><br><br><br><br><br><br><br><br>
+<!-- <br><br><br><br><br><br><br><br><br><br> -->
 
-<div class="container" >
-    <nav aria-label="Page navigation example">
-        <ul class="pagination justify-content-center">
-            <li class="page-item"><a class="page-link" (click)="previousPage()">Anterior</a></li>
-            <li class="page-item" *ngFor="let page of pages; let i = index"><a class="page-link"
-                    (click)="getPage(i)">{{i+1}}</a></li>
-            <li class="page-item"><a class="page-link" (click)="nextPage()">Siguiente</a></li>
-        </ul>
-    </nav>
+<div class="footer">
+    <div class="container" >
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+                <li class="page-item"><a class="page-link" (click)="previousPage()">Anterior</a></li>
+                <li class="page-item" *ngFor="let page of pages; let i = index"><a class="page-link"
+                        (click)="getPage(i)">{{i+1}}</a></li>
+                <li class="page-item"><a class="page-link" (click)="nextPage()">Siguiente</a></li>
+            </ul>
+        </nav>
+    </div>
 </div>
+

@@ -1,4 +1,15 @@
-<p>{{purchases[0].id}}</p>
 
+<div *ngFor="let purchase of purchases; index as i" style="margin-left: 50px;">
+    <br>
+    <h5>Compra #{{i+1}}</h5>
+    <p>Fecha: {{purchase.dateTime}}</p>
+    <p>Tipo de identificación: {{purchase.idType}}</p>
+    <p>Número de identificación: {{purchase.idClient}}</p>
+    <p>Nombre del cliente: {{purchase.nameClient}}</p>
+    <p>Productos comprados:</p>
+    <p *ngFor="let product of purchase.products" style="margin-left: 20px;">Id: {{product.id}} ; Cantidad: {{product.amount}}</p>
+</div>
 
-<button class="btn btn-primary" routerLink="">Regresar a la tienda</button>
+<br>
+
+<button class="btn btn-primary" routerLink="" style="margin-left: auto; margin-right: auto; display: block;">Regresar a la tienda</button>
