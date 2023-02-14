@@ -12,6 +12,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PurchasesComponent } from './purchases/purchases.component';
+import { AdminComponent } from './administrador/admin/admin.component';
+import { AdministradorModule } from './administrador/administrador.module';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,8 @@ import { PurchasesComponent } from './purchases/purchases.component';
     HttpClientModule,
     ReactiveFormsModule,
     ToastrModule.forRoot(),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    AdministradorModule
    
   ],
   providers: [HttpClientModule, CookieService],

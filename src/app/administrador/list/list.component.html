@@ -1,0 +1,84 @@
+<div class="row justify-content-center">
+    <div class="col-3" *ngFor="let bike of Bikes">
+        <div class="card" style="width: 18rem;">
+                
+            <div class="card-body">
+                <img [src]="bike.urlImage" class="card-img-top" alt="500px">
+                <h5 class="card-title">{{bike.name}}</h5>
+                <p class="card-text">Precio: {{bike.precio | currency}}</p>
+                <p class="card-text">En inventario: {{bike.inInventory}}</p>
+                <p class="card-text">Disponible: {{bike.enabled}}</p>
+                <p class="card-text">Mínimo: {{bike.min}}</p>
+                <p class="card-text">Máximo: {{bike.max}}</p>
+                <p class="card-text">Cantidad disponible: {{bike.max <= (bike.inInventory - bike.min) ? bike.max:  bike.inInventory - bike.min}}</p>
+               <button class="btn btn-danger" (click)="deleteBike(bike.id)">Eliminar</button>
+               <button class="btn btn-info" [id]= "bike.name" data-bs-toggle="modal" data-bs-target="" [attr.data-bs-target]="'#c'+bike.id" (click)="fillForm(bike)">Actualizar</button>
+
+
+               <div class="modal fade" [id]="'c'+bike.id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Actualizar bicicleta</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+
+                      <form id="idFormCreate" autocomplete="on" [formGroup]="form">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="floatingInput" placeholder="Nombre de la bicicleta"  formControlName="name" [value]="bike.name">
+                            <div *ngIf="form.get('name')?.hasError('required')">El nombre es requerido</div>
+                            <label for="floatingInput">Nombre</label>
+                        </div>
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="floatingPassword" placeholder="Inventario"  formControlName="inInventory" >
+                            <div *ngIf="form.get('inInventory')?.hasError('required')"> El inventario es requerido</div>
+                            <label for="floatingPassword">Inventario</label>
+                        </div>
+                        <div class="form-floating">
+                          <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" unchecked formControlName="enabled">
+                            <label class="form-check-label" for="flexCheckChecked">
+                              Disponibilidad al público
+                            </label>
+                          </div>
+                        </div>
+                        <div class="form-floating">
+                            <input type="number" class="form-control" id="floatingPassword1" placeholder="Mínimo" formControlName="min">
+                            <div *ngIf="form.get('min')?.hasError('required') ">Mínimo requerido</div>
+                            <label for="floatingPassword1">Mínimo</label>
+                        </div>
+                        <div class="form-floating">
+                            <input type="number" class="form-control" id="floatingPassword1" placeholder="Máximo" formControlName="max">
+                            <div *ngIf="form.get('max')?.hasError('required') ">Máximo requerido</div>
+                            <label for="floatingPassword1">Máximno</label>
+                        </div>
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="floatingPassword1" placeholder="Url de imágen" formControlName="urlImage">
+                            <div *ngIf="form.get('urlImage')?.hasError('required') ">Url requerida</div>
+                            <label for="floatingPassword1">Url de imágen</label>
+                        </div>
+                        <div class="form-floating">
+                            <input type="number" class="form-control" id="floatingPassword1" placeholder="Precio" formControlName="precio">
+                            <div *ngIf="form.get('precio')?.hasError('required') ">Precio requerido</div>
+                            <label for="floatingPassword1">Precio</label>
+                        </div>
+    
+                  
+                    </form>
+
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                      <button type="button" class="btn btn-primary" (click)="updateBike(bike)" data-bs-dismiss="modal">Guardar cambios</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,49 @@
+<div class="container">
+    <form id="idFormCreate" autocomplete="on" [formGroup]="form">
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="floatingInput" placeholder="Nombre de la bicicleta"  formControlName="name" >
+            <div *ngIf="form.get('name')?.hasError('required')">El nombre es requerido</div>
+            <label for="floatingInput">Nombre</label>
+        </div>
+        <div class="form-floating">
+            <input type="text" class="form-control" id="floatingPassword" placeholder="Inventario"  formControlName="inInventory" >
+            <div *ngIf="form.get('inInventory')?.hasError('required')"> El inventario es requerido</div>
+            <label for="floatingPassword">Inventario</label>
+        </div>
+        <div class="form-floating">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" unchecked formControlName="enabled">
+                <label class="form-check-label" for="flexCheckChecked">
+                  Disponibilidad al público
+                </label>
+              </div>
+        </div>
+        <div class="form-floating">
+            <input type="number" class="form-control" id="floatingPassword1" placeholder="Mínimo" formControlName="min">
+            <div *ngIf="form.get('min')?.hasError('required') ">Mínimo requerido</div>
+            <label for="floatingPassword1">Mínimo</label>
+        </div>
+        <div class="form-floating">
+            <input type="number" class="form-control" id="floatingPassword1" placeholder="Máximo" formControlName="max">
+            <div *ngIf="form.get('max')?.hasError('required') ">Máximo requerido</div>
+            <label for="floatingPassword1">Máximno</label>
+        </div>
+        <div class="form-floating">
+            <input type="text" class="form-control" id="floatingPassword1" placeholder="Url de imágen" formControlName="urlImage">
+            <div *ngIf="form.get('urlImage')?.hasError('required') ">Url requerida</div>
+            <label for="floatingPassword1">Url de imágen</label>
+        </div>
+        <div class="form-floating">
+            <input type="number" class="form-control" id="floatingPassword1" placeholder="Precio" formControlName="precio">
+            <div *ngIf="form.get('precio')?.hasError('required') ">Precio requerido</div>
+            <label for="floatingPassword1">Precio</label>
+        </div>
+
+        <button class="btn btn-primary" (click)="createBike()">Crear bicicleta</button>
+    
+    
+    </form>
+
+</div>
+
+

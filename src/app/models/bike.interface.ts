@@ -16,3 +16,14 @@ export interface Bike {
     precio: number
     amount: number
   }
+
+  export interface BikeDTO {
+
+    name: string
+    inInventory: number
+    enabled: boolean
+    min: number
+    max: number
+    urlImage: string
+    precio: number
+  }

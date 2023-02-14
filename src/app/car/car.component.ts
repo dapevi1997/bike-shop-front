@@ -36,7 +36,7 @@ export class CarComponent implements OnInit {
 
 
     this.formulario = new FormGroup({
-      idType: new FormControl(null, [Validators.required]),
+      idType: new FormControl( null,[Validators.required]),
       idClient: new FormControl(null, [Validators.required]),
       nameClient: new FormControl(null, [Validators.required])
     });
