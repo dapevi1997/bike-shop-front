@@ -6,6 +6,7 @@ import { PurchasesComponent } from './purchases/purchases.component';
 import { AdminComponent } from './administrador/admin/admin.component';
 import { ListComponent } from './administrador/list/list.component';
 import { CreateComponent } from './administrador/create/create.component';
+import { PurchasesComponentAdmin } from './administrador/purchases/purchases.component';
 
 const routes: Routes = [
   {path:"", component: HomeComponent},
@@ -13,7 +14,8 @@ const routes: Routes = [
   {path:"purchases", component: PurchasesComponent},
   {path:"admin", component: AdminComponent, children:[
     {path:"", component:ListComponent},
-    {path:"create", component:CreateComponent}
+    {path:"create", component:CreateComponent},
+    {path:"purchases", component:PurchasesComponentAdmin}
   ]}
 ];
 

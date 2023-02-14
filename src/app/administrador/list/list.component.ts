@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { InventaryService } from '../../services/inventary.service';
 import { Bike } from '../../models/bike.interface';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-list',
@@ -14,7 +15,7 @@ export class ListComponent implements OnInit {
   Bikes: Bike[];
   form: FormGroup;
 
-  constructor(private inventary$: InventaryService) {
+  constructor(private inventary$: InventaryService, private toast$: ToastrService) {
     this.Bikes = new Array<Bike>();
     this.form = new FormGroup(
       {
@@ -70,9 +71,13 @@ export class ListComponent implements OnInit {
         },
         error: (e) => {
           console.log(e)
+          this.toast$.success("Biscleta actualizada");
           window.location.href = "http://localhost:4200/admin"
+          
         },
-        complete: () => { window.location.href = "http://localhost:4200/admin" },
+        complete: () => { 
+          this.toast$.success("Biscleta actualizada");
+          window.location.href = "http://localhost:4200/admin" },
       }
     );
   }
@@ -90,7 +95,9 @@ export class ListComponent implements OnInit {
           console.log(e)
           
         },
-        complete: () => { window.location.href = "http://localhost:4200/admin" },
+        complete: () => {
+          this.toast$.success("Biscleta eliminada");
+          window.location.href = "http://localhost:4200/admin" },
       }
     );
   }

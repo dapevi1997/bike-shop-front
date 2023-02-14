@@ -33,6 +33,7 @@ import { AdministradorModule } from './administrador/administrador.module';
     AdministradorModule
    
   ],
+  exports:[PurchasesComponent],
   providers: [HttpClientModule, CookieService],
   bootstrap: [AppComponent]
 })

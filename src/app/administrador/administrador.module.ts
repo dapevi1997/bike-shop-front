@@ -5,6 +5,8 @@ import { ListComponent } from './list/list.component';
 import { AppRoutingModule } from '../app-routing.module';
 import { CreateComponent } from './create/create.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { PurchasesComponentAdmin } from './purchases/purchases.component';
+
 
 
 
@@ -13,12 +15,14 @@ import { ReactiveFormsModule } from '@angular/forms';
   declarations: [
     AdminComponent,
     ListComponent,
-    CreateComponent
+    CreateComponent,
+    PurchasesComponentAdmin
   ],
   imports: [
     CommonModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+   
   ],
   exports: [AdminComponent]
 })

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { BikeDTO } from '../../models/bike.interface';
 import { InventaryService } from '../../services/inventary.service';
 
@@ -10,7 +11,7 @@ import { InventaryService } from '../../services/inventary.service';
 })
 export class CreateComponent implements OnInit{
   form: FormGroup;
-  constructor(private invetary$: InventaryService){
+  constructor(private invetary$: InventaryService, private toast$: ToastrService){
     this.form = new FormGroup(
       {
         name: new FormControl("", [Validators.required]),
@@ -60,9 +61,11 @@ export class CreateComponent implements OnInit{
         },
         error: (e) => {
           console.log(e)
-          window.location.href = "http://localhost:4200/admin"
+         
         },
-        complete: () => { window.location.href = "http://localhost:4200/admin" },
+        complete: () => { 
+          this.toast$.success("Biscleta creada");
+          window.location.href = "http://localhost:4200/admin" },
       }
     );
     
