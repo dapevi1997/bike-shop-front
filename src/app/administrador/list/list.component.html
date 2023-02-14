@@ -1,3 +1,12 @@
+<div class="container">
+  <form class="d-flex" role="search">
+    <input class="form-control me-2" type="search" placeholder="Buscar id" aria-label="Search" #idToSearch>
+    <button class="btn btn-outline-success" type="button" (click)="findById(idToSearch.value)">Buscar</button>
+  </form>
+</div>
+
+<br>
+
 <div class="row justify-content-center">
     <div class="col-3" *ngFor="let bike of Bikes">
         <div class="card" style="width: 18rem;">

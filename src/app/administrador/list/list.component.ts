@@ -14,6 +14,7 @@ export class ListComponent implements OnInit {
 
   Bikes: Bike[];
   form: FormGroup;
+  flag: boolean = false;
 
   constructor(private inventary$: InventaryService, private toast$: ToastrService) {
     this.Bikes = new Array<Bike>();
@@ -33,6 +34,32 @@ export class ListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllBikes()
+  }
+
+  findById(id:string){
+
+    console.log(id)
+    
+    this.inventary$.getById(id)
+    .subscribe(
+      {
+
+        next: (data) => {
+          console.log(data)
+        
+          this.Bikes = [];
+          this.Bikes.push(data);
+        
+
+        },
+        error: (e) => {
+          console.log(e)
+        },
+        complete: () => {
+          console.log(this.Bikes)
+          this.flag = true },
+      }
+    );
   }
 
   fillForm(bike: Bike) {
@@ -103,7 +130,9 @@ export class ListComponent implements OnInit {
   }
 
   getAllBikes() {
-    this.inventary$.getAllBikes()
+
+    if(this.flag == false){
+      this.inventary$.getAllBikes()
       .subscribe(
         {
 
@@ -119,5 +148,8 @@ export class ListComponent implements OnInit {
           complete: () => { },
         }
       );
+    }
+
+
   }
 }
